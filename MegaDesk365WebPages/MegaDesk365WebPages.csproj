@@ -85,16 +85,25 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="WebMatrix.Data">
+      <HintPath>..\..\MyMoviesWeb\packages\WebMatrix.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="WebMatrix.WebData">
+      <HintPath>..\..\MyMoviesWeb\packages\WebMatrix.WebData.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default.cshtml" />
+    <Content Include="AddQuote.cshtml" />
     <None Include="packages.config" />
+    <Content Include="ViewQuotes.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
+    <Content Include="_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Web.config" />

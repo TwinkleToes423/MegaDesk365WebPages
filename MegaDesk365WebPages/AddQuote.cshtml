@@ -1,0 +1,73 @@
+﻿@{
+   Layout = "~/_Layout.cshtml";
+   Page.Book = "Add a Scripture";
+
+   Validation.RequireField("book", "You must enter a book");
+   Validation.RequireField("chapter", "You must enter a chapter");
+   Validation.RequireField("verse", "You must enter a verse");
+   Validation.RequireField("tag", "Tag is required");
+
+   var book = "";
+   var chapter = "";
+   var tag = "";
+   var verse = "";
+
+   if (IsPost)
+   {
+      if (Validation.IsValid())
+      {
+         book = Request.Form["book"];
+         chapter = Request.Form["chapter"];
+         verse = Request.Form["verse"];
+         tag = Request.Form["tag"];
+
+         var db = Database.Open("Scriptures");
+         var insertCommand = "INSERT INTO Scriptures (Book, Chapter, Verse, Tag) VALUES(@0, @1, @2, @3)";
+         db.Execute(insertCommand, book, chapter, verse, tag);
+
+         Response.Redirect("~/Default");
+      }
+   }
+}
+
+<h2>Add a Scripture</h2>
+@Html.ValidationSummary()
+<form method="post">
+   <fieldset>
+      <script src="~/Scripts/LoadBooks.js"></script>
+
+      <legend>Scripture Information</legend>
+      <p>
+         <label for="volume">Volume:</label>
+         <select type="text" name="volume" onchange="populateBooks()">
+            <option></option>
+            <option value="Old Testament">Old Testament</option>
+            <option value="New Testament">New Testament</option>
+            <option value="Book of Mormon">Book of Mormon</option>
+            <option value="Doctrine and Covenants">Doctrine and Covenants</option>
+            <option value="Pearl of Great Price">Pearl of Great Price</option>
+         </select>
+
+      <p>
+         <label for="book">Book:</label>
+         <select type="text" name="book" value="@Request.Form["book"]" disabled></select>
+         @Html.ValidationMessage("book")
+
+      <p>
+         <label for="chapter">Chapter:</label>
+         <select type="text" name="chapter" value="@Request.Form["chapter"]"></select>
+         @Html.ValidationMessage("chapter")
+
+      <p>
+         <label for="verse">Verse:</label>
+         <select type="text" name="verse" value="@Request.Form["verse"]"></select>
+         @Html.ValidationMessage("verse")
+      <p>
+         <label for="tag">Tag:</label>
+         <input type="text" name="tag" value="@Request.Form["tag"]" />
+         @Html.ValidationMessage("tag")
+
+      <p><input type="submit" name="buttonSubmit" value="Add Scripture" /></p>
+   </fieldset>
+</form>
+<script>initializeNumbers()</script>
