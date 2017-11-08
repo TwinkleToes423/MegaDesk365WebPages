@@ -2,6 +2,8 @@
    Layout = "~/_Layout.cshtml";
    Page.Width = "Edit a Quote";
 
+   var first = "";
+   var last = "";
    var width = "";
    var depth = "";
    var drawers = "";
@@ -21,6 +23,8 @@
 
          if (row != null)
          {
+            first = row.First;
+            last = row.Last;
             width = row.Width;
             depth = row.Depth;
             drawers = row.Drawers;
@@ -47,6 +51,8 @@
       Validation.RequireField("rushDays", "Rush days are blank");
       Validation.RequireField("quoteid", "No quote ID was submitted!");
 
+      first = Request.Form["first"];
+      last = Request.Form["last"];
       width = Request.Form["width"];
       depth = Request.Form["depth"];
       drawers = Request.Form["drawers"];
@@ -57,8 +63,8 @@
       if (Validation.IsValid())
       {
          var db = Database.Open("MegaDeskdb");
-         var updateCommand = "UPDATE Orders SET Width=@0, Depth=@1, Drawers=@2, Material=@3, RushDays=@4 WHERE Id=@5";
-         db.Execute(updateCommand, width, depth, drawers, material, rushDays, quoteId);
+         var updateCommand = "UPDATE Orders SET Width=@0, Depth=@1, Drawers=@2, Material=@3, RushDays=@4, [First]=@5, Last=@6 WHERE Id=@7";
+         db.Execute(updateCommand, width, depth, drawers, material, rushDays, first, last, quoteId);
          Response.Redirect("~/ViewQuotes");
       }
    }
@@ -69,6 +75,16 @@
 <form method="post">
    <fieldset>
       <legend>Quote Information</legend>
+
+      <p>
+         <label for="first">First Name:</label>
+         <input type="text" name="first" value="@first" />
+      </p>
+
+      <p>
+         <label for="last">Last Name:</label>
+         <input type="text" name="last" value="@last" />
+      </p>
 
       <p>
          <label for="width">Width:</label>
