@@ -95,7 +95,7 @@
   <ItemGroup>
     <Content Include="Default.cshtml" />
     <Content Include="AddQuote.cshtml" />
-    <Content Include="EditQuotes.cshtml" />
+    <Content Include="EditQuote.cshtml" />
     <Content Include="DeleteQuote.cshtml" />
     <None Include="packages.config" />
     <Content Include="ViewQuotes.cshtml" />

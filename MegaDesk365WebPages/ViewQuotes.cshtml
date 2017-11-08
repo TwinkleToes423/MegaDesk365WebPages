@@ -2,7 +2,7 @@
    Layout = "~/_Layout.cshtml";
    Page.Book = "List Quotes";
 
-   var db = Database.Open("Orders");
+   var db = Database.Open("MegaDeskdb");
    var selectCommand = "SELECT * FROM Orders";
    var searchTerm = "";
 
@@ -54,4 +54,4 @@
         )
     )
 </div>
-<p><a href="~/AddQuote">Add a quotes</a></p>
+<p><a href="~/Default">Return to home</a></p>

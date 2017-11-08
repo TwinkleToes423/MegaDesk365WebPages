@@ -12,7 +12,7 @@
       if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
       {
          quoteId = Request.QueryString["ID"];
-         var db = Database.Open("Orders");
+         var db = Database.Open("MegaDeskdb");
          var dbCommand = "SELECT * FROM Orders WHERE ID = @0";
          var row = db.QuerySingle(dbCommand, quoteId);
 
@@ -47,10 +47,10 @@
 
       if (Validation.IsValid())
       {
-         var db = Database.Open("Orders");
-         var updateCommand = "UPDATE Quotes SET Book=@0, Tag=@1, Verse=@2 WHERE Id=@3";
+         var db = Database.Open("MegaDeskdb");
+         var updateCommand = "UPDATE Orders SET Book=@0, Tag=@1, Verse=@2 WHERE Id=@3";
          db.Execute(updateCommand, book, tag, verse, quoteId);
-         Response.Redirect("~/Default");
+         Response.Redirect("~/ViewQuotes");
       }
    }
 }
@@ -81,4 +81,4 @@
       <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
    </fieldset>
 </form>
-<p><a href="~/Default">Return to quote listing</a></p>
+<p><a href="~/ViewQuotes">Return to quote listing</a></p>

@@ -12,7 +12,7 @@
       if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].AsInt() > 0)
       {
          quoteId = Request.QueryString["ID"];
-         var db = Database.Open("Orders");
+         var db = Database.Open("MegaDeskdb");
          var dbCommand = "SELECT * FROM Orders WHERE ID = @0";
          var row = db.QuerySingle(dbCommand, quoteId);
          if (row != null)
@@ -35,17 +35,17 @@
    if (IsPost && !Request["buttonDelete"].IsEmpty())
    {
       quoteId = Request.Form["quoteId"];
-      var db = Database.Open("Orders");
+      var db = Database.Open("MegaDeskdb");
       var deleteCommand = "DELETE FROM Orders WHERE ID = @0";
       db.Execute(deleteCommand, quoteId);
-      Response.Redirect("~/Default");
+      Response.Redirect("~/ViewQuotes");
    }
 
 }
 
 <h2>Delete a Quote</h2>
 @Html.ValidationSummary()
-<p><a href="~/Default">Return to quote listing</a></p>
+<p><a href="~/ViewQuotes">Return to quote listing</a></p>
 
 <form method="post">
    <fieldset>

@@ -21,7 +21,7 @@
          verse = Request.Form["verse"];
          tag = Request.Form["tag"];
 
-         var db = Database.Open("Orders");
+         var db = Database.Open("MegaDeskdb");
          var insertCommand = "INSERT INTO Orders (Book, Chapter, Verse, Tag) VALUES(@0, @1, @2, @3)";
          db.Execute(insertCommand, book, chapter, verse, tag);
 
