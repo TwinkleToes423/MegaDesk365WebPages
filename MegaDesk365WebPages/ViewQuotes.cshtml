@@ -1,40 +1,40 @@
 ﻿@{
    Layout = "~/_Layout.cshtml";
-   Page.Book = "List Quotes";
+   Page.Last = "List Quotes";
 
    var db = Database.Open("MegaDeskdb");
    var selectCommand = "SELECT * FROM Orders";
    var searchTerm = "";
 
-   if (!Request.QueryString["searchTag"].IsEmpty())
+   if (!Request.QueryString["searchFirst"].IsEmpty())
    {
-      selectCommand = "SELECT * FROM Orders WHERE Tag = @0";
-      searchTerm = Request.QueryString["searchTag"];
+      selectCommand = "SELECT * FROM Orders WHERE First = @0";
+      searchTerm = Request.QueryString["searchFirst"];
    }
 
-   if (!Request.QueryString["searchBook"].IsEmpty())
+   if (!Request.QueryString["searchLast"].IsEmpty())
    {
-      selectCommand = "SELECT * FROM Orders WHERE Book LIKE @0";
-      searchTerm = "%" + Request.QueryString["searchBook"] + "%";
+      selectCommand = "SELECT * FROM Orders WHERE Last LIKE @0";
+      searchTerm = "%" + Request.QueryString["searchLast"] + "%";
    }
 
    var selectedData = db.Query(selectCommand, searchTerm);
-   var grid = new WebGrid(source: selectedData, defaultSort: "Tag", rowsPerPage: 3);
+   var grid = new WebGrid(source: selectedData, defaultSort: "First", rowsPerPage: 3);
 }
 
 <h2>List Quotes</h2>
 <form method="get">
    <div>
-      <label for="searchTag">Tag to look for:</label>
-      <input type="text" name="searchTag" value="@Request.QueryString["searchTag"]" />
-      <input type="Submit" value="Search Tag" /><br />
+      <label for="searchFirst">First to look for:</label>
+      <input type="text" name="searchFirst" value="@Request.QueryString["searchFirst"]" />
+      <input type="Submit" value="Search First" /><br />
       (Leave blank to list all quotes.)<br />
    </div>
 
    <div>
-      <label for="SearchBook">Quote book contains the following:</label>
-      <input type="text" name="searchBook" value="@Request.QueryString["searchBook"]" />
-      <input type="Submit" value="Search Book" /><br />
+      <label for="SearchLast">Quote last contains the following:</label>
+      <input type="text" name="searchLast" value="@Request.QueryString["searchLast"]" />
+      <input type="Submit" value="Search Last" /><br />
    </div>
 </form>
 
@@ -45,11 +45,15 @@
         alternatingRowStyle: "alt",
         columns: grid.Columns(
     grid.Column(format: @<a href="~/EditQuote?id=@item.ID">Edit</a>),
-    grid.Column("Book"),
-    grid.Column("Chapter"),
-    grid.Column("Verse"),
-    grid.Column("Tag"),
-    grid.Column("DateAdded"),
+    grid.Column("First"),
+    grid.Column("Last"),
+    grid.Column("Width"),
+    grid.Column("Depth"),
+    grid.Column("Drawers"),
+    grid.Column("Material"),
+    grid.Column("RushDays"),
+    grid.Column("Price"),
+    grid.Column("DateOrdered"),
     grid.Column(format: @<a href="~/DeleteQuote?id=@item.ID">Delete</a>)
         )
     )

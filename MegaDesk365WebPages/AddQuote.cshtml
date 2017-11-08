@@ -1,29 +1,31 @@
 ﻿@{
    Layout = "~/_Layout.cshtml";
-   Page.Book = "Add a Quote";
+   Page.Width = "Add a Quote";
 
-   Validation.RequireField("book", "You must enter a book");
-   Validation.RequireField("chapter", "You must enter a chapter");
-   Validation.RequireField("verse", "You must enter a verse");
-   Validation.RequireField("tag", "Tag is required");
+   Validation.RequireField("width", "You must enter a width");
+   Validation.RequireField("depth", "You must enter a depth");
+   Validation.RequireField("drawers", "You must enter a drawers");
+   Validation.RequireField("material", "Material is required");
+   Validation.RequireField("rushDays", "Rush Days are required");
 
-   var book = "";
-   var chapter = "";
-   var tag = "";
-   var verse = "";
+   var width = "";
+   var depth = "";
+   var drawers = "";
+   var material = "";
+   var rushDays = "";
 
    if (IsPost)
    {
       if (Validation.IsValid())
       {
-         book = Request.Form["book"];
-         chapter = Request.Form["chapter"];
-         verse = Request.Form["verse"];
-         tag = Request.Form["tag"];
+         width = Request.Form["width"];
+         depth = Request.Form["depth"];
+         drawers = Request.Form["drawers"];
+         material = Request.Form["material"];
 
          var db = Database.Open("MegaDeskdb");
-         var insertCommand = "INSERT INTO Orders (Book, Chapter, Verse, Tag) VALUES(@0, @1, @2, @3)";
-         db.Execute(insertCommand, book, chapter, verse, tag);
+         var insertCommand = "INSERT INTO Orders (Width, Depth, Drawers, Material, RushDays) VALUES(@0, @1, @2, @3, @4)";
+         db.Execute(insertCommand, width, depth, drawers, material, rushDays);
 
          Response.Redirect("~/Default");
       }
@@ -34,40 +36,41 @@
 @Html.ValidationSummary()
 <form method="post">
    <fieldset>
-      <script src="~/Scripts/LoadBooks.js"></script>
+      <script src="~/Scripts/LoadWidths.js"></script>
 
       <legend>Quote Information</legend>
       <p>
-         <label for="volume">Volume:</label>
-         <select type="text" name="volume" onchange="populateBooks()">
-            <option></option>
-            <option value="Old Testament">Old Testament</option>
-            <option value="New Testament">New Testament</option>
-            <option value="Book of Mormon">Book of Mormon</option>
-            <option value="Doctrine and Covenants">Doctrine and Covenants</option>
-            <option value="Pearl of Great Price">Pearl of Great Price</option>
+         <label for="width">Width:</label>
+         <input type="number" name="width" min="29" max="96" value="@Request.Form["width"]" />
+         @Html.ValidationMessage("width")
+
+      <p>
+         <label for="depth">Depth:</label>
+         <input type="number" name="depth" min="12" max="48" value="@Request.Form["depth"]" />
+         @Html.ValidationMessage("depth")
+
+      <p>
+         <label for="drawers">Number of Drawers:</label>
+         <input type="number" name="drawers" min="0" max="7" value="@Request.Form["drawers"]" />
+         @Html.ValidationMessage("drawers")
+
+      <p>
+         <label for="material">Material:</label>
+         <select type="text" name="material" value="@Request.Form["material"]">
+            <option value="Laminate">Laminate</option>
+            <option value="Oak">Oak</option>
+            <option value="Pine">Pine</option>
+            <option value="Rosewood">Rosewood</option>
+            <option value="Veneer">Veneer</option>
          </select>
+         @Html.ValidationMessage("material")
 
       <p>
-         <label for="book">Book:</label>
-         <select type="text" name="book" value="@Request.Form["book"]" disabled></select>
-         @Html.ValidationMessage("book")
+         <label for="rushDays">Rush Days:</label>
+         <input type="number" name="rushDays" min="3" max="15" step="2" value="@Request.Form["rushDays"]" />
+         @Html.ValidationMessage("rushDays")
 
-      <p>
-         <label for="chapter">Chapter:</label>
-         <select type="text" name="chapter" value="@Request.Form["chapter"]"></select>
-         @Html.ValidationMessage("chapter")
-
-      <p>
-         <label for="verse">Verse:</label>
-         <select type="text" name="verse" value="@Request.Form["verse"]"></select>
-         @Html.ValidationMessage("verse")
-      <p>
-         <label for="tag">Tag:</label>
-         <input type="text" name="tag" value="@Request.Form["tag"]" />
-         @Html.ValidationMessage("tag")
-
-      <p><input type="submit" name="buttonSubmit" value="Add Quote" /></p>
+<p><input type="submit" name="buttonSubmit" value="Add Quote" /></p>
    </fieldset>
 </form>
 <script>initializeNumbers()</script>
