@@ -1,10 +1,14 @@
 ﻿@{
    Layout = "~/_Layout.cshtml";
-   Page.Book = "Delete a Quote";
+   Page.Width = "Delete a Quote";
 
-   var book = "";
-   var tag = "";
-   var verse = "";
+   var first = "";
+   var last = "";
+   var width = "";
+   var depth = "";
+   var drawers = "";
+   var material = "";
+   var rushDays = "";
    var quoteId = "";
 
    if (!IsPost)
@@ -17,9 +21,13 @@
          var row = db.QuerySingle(dbCommand, quoteId);
          if (row != null)
          {
-            book = row.Book;
-            tag = row.Tag;
-            verse = row.Verse;
+            first = row.First;
+            last = row.Last;
+            width = row.Width;
+            depth = row.Depth;
+            drawers = row.Drawers;
+            material = row.Material;
+            rushDays = row.RushDays;
          }
          else
          {
@@ -52,18 +60,38 @@
       <legend>Quote Information</legend>
 
       <p>
-         <span>Book:</span>
-         <span>@book</span>
+         <span>First Name:</span>
+         <span>@first</span>
       </p>
 
       <p>
-         <span>Tag:</span>
-         <span>@tag</span>
+         <span>Last Name:</span>
+         <span>@last</span>
       </p>
 
       <p>
-         <span>Verse:</span>
-         <span>@verse</span>
+         <span>Width:</span>
+         <span>@width</span>
+      </p>
+
+      <p>
+         <span>Depth:</span>
+         <span>@depth</span>
+      </p>
+
+      <p>
+         <span>Drawers:</span>
+         <span>@drawers</span>
+      </p>
+
+      <p>
+         <span>Material:</span>
+         <span>@material</span>
+      </p>
+
+      <p>
+         <span>Rush Days:</span>
+         <span>@rushDays</span>
       </p>
 
       <input type="hidden" name="quoteid" value="@quoteId" />

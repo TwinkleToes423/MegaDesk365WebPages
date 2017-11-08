@@ -1,10 +1,13 @@
 ﻿@{
    Layout = "~/_Layout.cshtml";
-   Page.Book = "Edit a Quote";
+   Page.Width = "Edit a Quote";
 
-   var book = "";
-   var tag = "";
-   var verse = "";
+   var width = "";
+   var depth = "";
+   var drawers = "";
+   var material = "";
+   var rushDays = "";
+
    var quoteId = "";
 
    if (!IsPost)
@@ -18,9 +21,11 @@
 
          if (row != null)
          {
-            book = row.Book;
-            tag = row.Tag;
-            verse = row.Verse;
+            width = row.Width;
+            depth = row.Depth;
+            drawers = row.Drawers;
+            material = row.Material;
+            rushDays = row.RushDays;
          }
          else
          {
@@ -35,21 +40,25 @@
 
    if (IsPost)
    {
-      Validation.RequireField("book", "You must enter a book");
-      Validation.RequireField("tag", "Tag is required");
-      Validation.RequireField("verse", "You haven't entered a verse");
+      Validation.RequireField("width", "You must enter a width");
+      Validation.RequireField("depth", "Depth is required");
+      Validation.RequireField("drawers", "You haven't entered a drawers");
+      Validation.RequireField("material", "Material is blank");
+      Validation.RequireField("rushDays", "Rush days are blank");
       Validation.RequireField("quoteid", "No quote ID was submitted!");
 
-      book = Request.Form["book"];
-      tag = Request.Form["tag"];
-      verse = Request.Form["verse"];
+      width = Request.Form["width"];
+      depth = Request.Form["depth"];
+      drawers = Request.Form["drawers"];
+      material = Request.Form["material"];
+      rushDays = Request.Form["rushDays"];
       quoteId = Request.Form["quoteId"];
 
       if (Validation.IsValid())
       {
          var db = Database.Open("MegaDeskdb");
-         var updateCommand = "UPDATE Orders SET Book=@0, Tag=@1, Verse=@2 WHERE Id=@3";
-         db.Execute(updateCommand, book, tag, verse, quoteId);
+         var updateCommand = "UPDATE Orders SET Width=@0, Depth=@1, Drawers=@2, Material=@3, RushDays=@4 WHERE Id=@5";
+         db.Execute(updateCommand, width, depth, drawers, material, rushDays, quoteId);
          Response.Redirect("~/ViewQuotes");
       }
    }
@@ -62,18 +71,28 @@
       <legend>Quote Information</legend>
 
       <p>
-         <label for="book">Book:</label>
-         <input type="text" name="book" value="@book" />
+         <label for="width">Width:</label>
+         <input type="text" name="width" value="@width" />
       </p>
 
       <p>
-         <label for="tag">Tag:</label>
-         <input type="text" name="tag" value="@tag" />
+         <label for="depth">Depth:</label>
+         <input type="text" name="depth" value="@depth" />
       </p>
 
       <p>
-         <label for="verse">Verse:</label>
-         <input type="text" name="verse" value="@verse" />
+         <label for="drawers">Drawers:</label>
+         <input type="text" name="drawers" value="@drawers" />
+      </p>
+
+      <p>
+         <label for="material">Material:</label>
+         <input type="text" name="material" value="@material" />
+      </p>
+
+      <p>
+         <label for="rushDays">Rush Days:</label>
+         <input type="text" name="rushDays" value="@rushDays" />
       </p>
 
       <input type="hidden" name="quoteid" value="@quoteId" />

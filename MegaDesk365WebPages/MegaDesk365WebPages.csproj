@@ -108,7 +108,6 @@
     <Content Include="_Layout.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Scripts\LoadBooks.js" />
     <Content Include="Styles\screen.css" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -117,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
