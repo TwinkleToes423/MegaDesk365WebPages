@@ -1,0 +1,84 @@
+﻿@{
+   Layout = "~/_Layout.cshtml";
+   Page.Book = "Edit a Quote";
+
+   var book = "";
+   var tag = "";
+   var verse = "";
+   var quoteId = "";
+
+   if (!IsPost)
+   {
+      if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].IsInt())
+      {
+         quoteId = Request.QueryString["ID"];
+         var db = Database.Open("Orders");
+         var dbCommand = "SELECT * FROM Orders WHERE ID = @0";
+         var row = db.QuerySingle(dbCommand, quoteId);
+
+         if (row != null)
+         {
+            book = row.Book;
+            tag = row.Tag;
+            verse = row.Verse;
+         }
+         else
+         {
+            Validation.AddFormError("No quote was selected.");
+         }
+      }
+      else
+      {
+         Validation.AddFormError("No quote was selected.");
+      }
+   }
+
+   if (IsPost)
+   {
+      Validation.RequireField("book", "You must enter a book");
+      Validation.RequireField("tag", "Tag is required");
+      Validation.RequireField("verse", "You haven't entered a verse");
+      Validation.RequireField("quoteid", "No quote ID was submitted!");
+
+      book = Request.Form["book"];
+      tag = Request.Form["tag"];
+      verse = Request.Form["verse"];
+      quoteId = Request.Form["quoteId"];
+
+      if (Validation.IsValid())
+      {
+         var db = Database.Open("Orders");
+         var updateCommand = "UPDATE Quotes SET Book=@0, Tag=@1, Verse=@2 WHERE Id=@3";
+         db.Execute(updateCommand, book, tag, verse, quoteId);
+         Response.Redirect("~/Default");
+      }
+   }
+}
+
+<h2>Edit a Quote</h2>
+@Html.ValidationSummary()
+<form method="post">
+   <fieldset>
+      <legend>Quote Information</legend>
+
+      <p>
+         <label for="book">Book:</label>
+         <input type="text" name="book" value="@book" />
+      </p>
+
+      <p>
+         <label for="tag">Tag:</label>
+         <input type="text" name="tag" value="@tag" />
+      </p>
+
+      <p>
+         <label for="verse">Verse:</label>
+         <input type="text" name="verse" value="@verse" />
+      </p>
+
+      <input type="hidden" name="quoteid" value="@quoteId" />
+
+      <p><input type="submit" name="buttonSubmit" value="Submit Changes" /></p>
+   </fieldset>
+</form>
+<p><a href="~/Default">Return to quote listing</a></p>

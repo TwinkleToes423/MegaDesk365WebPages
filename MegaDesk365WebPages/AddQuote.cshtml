@@ -1,6 +1,6 @@
 ﻿@{
    Layout = "~/_Layout.cshtml";
-   Page.Book = "Add a Scripture";
+   Page.Book = "Add a Quote";
 
    Validation.RequireField("book", "You must enter a book");
    Validation.RequireField("chapter", "You must enter a chapter");
@@ -21,8 +21,8 @@
          verse = Request.Form["verse"];
          tag = Request.Form["tag"];
 
-         var db = Database.Open("Scriptures");
-         var insertCommand = "INSERT INTO Scriptures (Book, Chapter, Verse, Tag) VALUES(@0, @1, @2, @3)";
+         var db = Database.Open("Orders");
+         var insertCommand = "INSERT INTO Orders (Book, Chapter, Verse, Tag) VALUES(@0, @1, @2, @3)";
          db.Execute(insertCommand, book, chapter, verse, tag);
 
          Response.Redirect("~/Default");
@@ -30,13 +30,13 @@
    }
 }
 
-<h2>Add a Scripture</h2>
+<h2>Add a Quote</h2>
 @Html.ValidationSummary()
 <form method="post">
    <fieldset>
       <script src="~/Scripts/LoadBooks.js"></script>
 
-      <legend>Scripture Information</legend>
+      <legend>Quote Information</legend>
       <p>
          <label for="volume">Volume:</label>
          <select type="text" name="volume" onchange="populateBooks()">
@@ -67,7 +67,7 @@
          <input type="text" name="tag" value="@Request.Form["tag"]" />
          @Html.ValidationMessage("tag")
 
-      <p><input type="submit" name="buttonSubmit" value="Add Scripture" /></p>
+      <p><input type="submit" name="buttonSubmit" value="Add Quote" /></p>
    </fieldset>
 </form>
 <script>initializeNumbers()</script>

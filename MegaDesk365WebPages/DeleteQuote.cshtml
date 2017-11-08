@@ -1,0 +1,72 @@
+﻿@{
+   Layout = "~/_Layout.cshtml";
+   Page.Book = "Delete a Quote";
+
+   var book = "";
+   var tag = "";
+   var verse = "";
+   var quoteId = "";
+
+   if (!IsPost)
+   {
+      if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].AsInt() > 0)
+      {
+         quoteId = Request.QueryString["ID"];
+         var db = Database.Open("Orders");
+         var dbCommand = "SELECT * FROM Orders WHERE ID = @0";
+         var row = db.QuerySingle(dbCommand, quoteId);
+         if (row != null)
+         {
+            book = row.Book;
+            tag = row.Tag;
+            verse = row.Verse;
+         }
+         else
+         {
+            Validation.AddFormError("No quote was found for that ID.");
+         }
+      }
+      else
+      {
+         Validation.AddFormError("No quote was found for that ID.");
+      }
+   }
+
+   if (IsPost && !Request["buttonDelete"].IsEmpty())
+   {
+      quoteId = Request.Form["quoteId"];
+      var db = Database.Open("Orders");
+      var deleteCommand = "DELETE FROM Orders WHERE ID = @0";
+      db.Execute(deleteCommand, quoteId);
+      Response.Redirect("~/Default");
+   }
+
+}
+
+<h2>Delete a Quote</h2>
+@Html.ValidationSummary()
+<p><a href="~/Default">Return to quote listing</a></p>
+
+<form method="post">
+   <fieldset>
+      <legend>Quote Information</legend>
+
+      <p>
+         <span>Book:</span>
+         <span>@book</span>
+      </p>
+
+      <p>
+         <span>Tag:</span>
+         <span>@tag</span>
+      </p>
+
+      <p>
+         <span>Verse:</span>
+         <span>@verse</span>
+      </p>
+
+      <input type="hidden" name="quoteid" value="@quoteId" />
+      <p><input type="submit" name="buttonDelete" value="Delete Quote" /></p>
+   </fieldset>
+</form>
