@@ -2,8 +2,8 @@
    Layout = "~/_Layout.cshtml";
    Page.Width = "Add a Quote";
 
-   Validation.RequireField("first", "You must enter a first name");
-   Validation.RequireField("last", "You must enter a last name");
+   //Validation.RequireField("first", "You must enter a first name");
+   //Validation.RequireField("last", "You must enter a last name");
    Validation.RequireField("width", "You must enter a width");
    Validation.RequireField("depth", "You must enter a depth");
    Validation.RequireField("drawers", "You must enter a drawers");
@@ -31,8 +31,8 @@
          rushDays = Request.Form["rushDays"];
 
          var db = Database.Open("MegaDeskdb");
-         var insertCommand = "INSERT INTO Orders (First, Last, Width, Depth, Drawers, Material, RushDays) VALUES(@0, @1, @2, @3, @4, @5, @6)";
-         db.Execute(insertCommand, first, last, width, depth, drawers, material, rushDays);
+         var insertCommand = "INSERT INTO Orders (Width, Depth, Drawers, Material, RushDays, [First], Last) VALUES(@0, @1, @2, @3, @4, @5, @6)";
+         db.Execute(insertCommand,  width, depth, drawers, material, rushDays, first, last);
 
          Response.Redirect("~/ViewQuotes");
       }

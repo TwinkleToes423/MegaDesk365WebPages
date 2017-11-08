@@ -8,7 +8,7 @@
 
    if (!Request.QueryString["searchFirst"].IsEmpty())
    {
-      selectCommand = "SELECT * FROM Orders WHERE First = @0";
+      selectCommand = "SELECT * FROM Orders WHERE [First] = @0";
       searchTerm = Request.QueryString["searchFirst"];
    }
 
@@ -19,7 +19,7 @@
    }
 
    var selectedData = db.Query(selectCommand, searchTerm);
-   var grid = new WebGrid(source: selectedData, defaultSort: "First", rowsPerPage: 3);
+   var grid = new WebGrid(source: selectedData, defaultSort: "First", rowsPerPage: 10);
 }
 
 <h2>List Quotes</h2>
