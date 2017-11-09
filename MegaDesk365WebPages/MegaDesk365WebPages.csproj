@@ -93,6 +93,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\MegaDeskdb.sdf" />
     <Content Include="Default.cshtml" />
     <Content Include="AddQuote.cshtml" />
     <Content Include="EditQuote.cshtml" />
@@ -115,7 +116,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Scripts\" />
   </ItemGroup>
   <PropertyGroup>
