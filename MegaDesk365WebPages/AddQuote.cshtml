@@ -22,16 +22,16 @@
    {
       if (Validation.IsValid())
       {
-         first = Request.Form["first"];
-         last = Request.Form["last"];
+         first = Request.Form["first_name"];
+         last = Request.Form["last_name"];
          width = Request.Form["width"];
          depth = Request.Form["depth"];
-         drawers = Request.Form["drawers"];
-         material = Request.Form["material"];
-         rushDays = Request.Form["rushDays"];
+         drawers = Request.Form["dwr_number"];
+         material = Request.Form["surface_mat"];
+         rushDays = Request.Form["shipping_spd"];
 
          var db = Database.Open("MegaDeskdb");
-         var insertCommand = "INSERT INTO Orders ([First], Last, Width, Depth, Drawers, Material, RushDays) VALUES(@0, @1, @2, @3, @4, @5, @6)";
+         var insertCommand = "INSERT INTO Desk (first_name, last_name, width, depth, dwr_number, surface_mat, shipping_spd) VALUES(@0, @1, @2, @3, @4, @5, @6)";
          db.Execute(insertCommand, first, last, width, depth, drawers, material, rushDays);
 
          Response.Redirect("~/ViewQuotes");
@@ -47,14 +47,14 @@
 
       <legend>Quote Information</legend>
       <p>
-         <label for="first">Customer First Name:</label>
-         <input type="text" name="first" value="@Request.Form["first"]" />
-         @Html.ValidationMessage("first")
+         <label for="first_name">Customer First Name:</label>
+         <input type="text" name="first_name" value="@Request.Form["first_name"]" />
+         @Html.ValidationMessage("first_name")
 
       <p>
-         <label for="last">Customer Last Name:</label>
-         <input type="text" name="last" value="@Request.Form["last"]" />
-         @Html.ValidationMessage("last")
+         <label for="last_name">Customer Last Name:</label>
+         <input type="text" name="last_name" value="@Request.Form["last_name"]" />
+         @Html.ValidationMessage("last_name")
 
       <p>
          <label for="width">Width:</label>
@@ -67,25 +67,25 @@
          @Html.ValidationMessage("depth")
 
       <p>
-         <label for="drawers">Number of Drawers:</label>
-         <input type="number" name="drawers" min="0" max="7" value="@Request.Form["drawers"]" />
-         @Html.ValidationMessage("drawers")
+         <label for="dwr_number">Number of Drawers:</label>
+         <input type="number" name="dwr_number" min="0" max="7" value="@Request.Form["dwr_number"]" />
+         @Html.ValidationMessage("dwr_number")
 
       <p>
-         <label for="material">Material:</label>
-         <select type="text" name="material" value="@Request.Form["material"]">
+         <label for="surface_mat">Material:</label>
+         <select type="text" name="surface_mat" value="@Request.Form["surface_mat"]">
             <option value="Laminate">Laminate</option>
             <option value="Oak">Oak</option>
             <option value="Pine">Pine</option>
             <option value="Rosewood">Rosewood</option>
             <option value="Veneer">Veneer</option>
          </select>
-         @Html.ValidationMessage("material")
+         @Html.ValidationMessage("surface_mat")
 
       <p>
-         <label for="rushDays">Rush Shipping Days:</label>
-         <input type="number" name="rushDays" min="3" max="15" step="2" value="@Request.Form["rushDays"]" />
-         @Html.ValidationMessage("rushDays")
+         <label for="shipping_spd">Rush Shipping Days:</label>
+         <input type="number" name="shipping_spd" min="3" max="15" step="2" value="@Request.Form["shipping_spd"]" />
+         @Html.ValidationMessage("shipping_spd")
 
 <p><input type="submit" name="buttonSubmit" value="Add Quote" /></p>
    </fieldset>

@@ -17,17 +17,17 @@
       {
          quoteId = Request.QueryString["ID"];
          var db = Database.Open("MegaDeskdb");
-         var dbCommand = "SELECT * FROM Orders WHERE ID = @0";
+         var dbCommand = "SELECT * FROM Desk WHERE ID = @0";
          var row = db.QuerySingle(dbCommand, quoteId);
          if (row != null)
          {
-            first = row.First;
-            last = row.Last;
-            width = row.Width;
-            depth = row.Depth;
-            drawers = row.Drawers;
-            material = row.Material;
-            rushDays = row.RushDays;
+            first = row.first_name;
+            last = row.last_name;
+            width = row.width;
+            depth = row.depth;
+            drawers = row.dwr_number;
+            material = row.surface_mat;
+            rushDays = row.shipping_spd;
          }
          else
          {
@@ -44,7 +44,7 @@
    {
       quoteId = Request.Form["quoteId"];
       var db = Database.Open("MegaDeskdb");
-      var deleteCommand = "DELETE FROM Orders WHERE ID = @0";
+      var deleteCommand = "DELETE FROM Desk WHERE ID = @0";
       db.Execute(deleteCommand, quoteId); 
       Response.Redirect("~/ViewQuotes");
    }
