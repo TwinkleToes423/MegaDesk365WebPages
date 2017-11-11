@@ -8,7 +8,7 @@
 
    if (!Request.QueryString["searchFirst"].IsEmpty())
    {
-      selectCommand = "SELECT *FROM customer INNER JOIN order ON customer.customer_id = order.customer_id INNER JOIN desk ON order.order_id = desk.order_id WHERE first_name = @0";;
+      selectCommand = "SELECT * FROM customer INNER JOIN order ON customer.customer_id = order.customer_id INNER JOIN desk ON order.order_id = desk.order_id WHERE first_name = @0";;
       searchTerm = Request.QueryString["searchFirst"];
    }
 
