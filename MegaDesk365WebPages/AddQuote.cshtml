@@ -1,42 +1,50 @@
 ﻿@{
-   Layout = "~/_Layout.cshtml";
-   Page.Width = "Add a Quote";
+    Layout = "~/_Layout.cshtml";
+    Page.Width = "Add a Quote";
 
-   //Validation.RequireField("first", "You must enter a first name");
-   //Validation.RequireField("last", "You must enter a last name");
-   Validation.RequireField("width", "You must enter a width");
-   Validation.RequireField("depth", "You must enter a depth");
-   Validation.RequireField("drawers", "You must enter a drawers");
-   Validation.RequireField("material", "Material is required");
-   Validation.RequireField("rushDays", "Rush Days are required");
+    //Validation.RequireField("first", "You must enter a first name");
+    //Validation.RequireField("last", "You must enter a last name");
+    Validation.RequireField("width", "You must enter a width");
+    Validation.RequireField("depth", "You must enter a depth");
+    Validation.RequireField("drawers", "You must enter a drawers");
+    Validation.RequireField("material", "Material is required");
+    Validation.RequireField("rushDays", "Rush Days are required");
 
-   var first = "";
-   var last = "";
-   var width = "";
-   var depth = "";
-   var drawers = "";
-   var material = "";
-   var rushDays = "";
+    var first = "";
+    var last = "";
+    var width = "";
+    var depth = "";
+    var drawers = "";
+    var material = "";
+    var rushDays = "";
 
-   if (IsPost)
-   {
-      if (Validation.IsValid())
-      {
-         first = Request.Form["first_name"];
-         last = Request.Form["last_name"];
-         width = Request.Form["width"];
-         depth = Request.Form["depth"];
-         drawers = Request.Form["dwr_number"];
-         material = Request.Form["surface_mat"];
-         rushDays = Request.Form["shipping_spd"];
+    if (IsPost)
+    {
+        if (Validation.IsValid())
+        {
+            first = Request.Form["first_name"];
+            last = Request.Form["last_name"];
 
-         var db = Database.Open("MegaDeskdb");
-         var insertCommand = "INSERT INTO Desk (first_name, last_name, width, depth, dwr_number, surface_mat, shipping_spd) VALUES(@0, @1, @2, @3, @4, @5, @6)";
-         db.Execute(insertCommand, first, last, width, depth, drawers, material, rushDays);
 
-         Response.Redirect("~/ViewQuotes");
-      }
-   }
+            var db = Database.Open("MegaDeskdb");
+            var insertCommand = "INSERT INTO Customer (first_name, last_name) Values(@0, @1)";
+           db.Execute(insertCommand, first, last);
+
+            Response.Redirect("~/ViewQuotes");
+        }
+        if (Validation.IsValid())
+        {
+            width = Request.Form["width"];
+            depth = Request.Form["depth"];
+            drawers = Request.Form["dwr_number"];
+            material = Request.Form["surface_mat"];
+            rushDays = Request.Form["shipping_spd"];
+
+            var db = Database.Open("MegaDeskdb");
+            var insertCommand = "INSERT INTO Desk (width, depth, dwr_number, surface_mat, shipping_spd) VALUES(@0, @1, @2, @3, @4)";
+            db.Execute(insertCommand, width, depth, drawers, material, rushDays);
+        }
+    }
 }
 
 <h2>Add a Quote</h2>
