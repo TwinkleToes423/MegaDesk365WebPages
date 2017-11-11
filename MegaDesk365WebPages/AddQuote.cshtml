@@ -28,9 +28,8 @@
 
             var db = Database.Open("MegaDeskdb");
             var insertCommand = "INSERT INTO Customer (first_name, last_name) Values(@0, @1)";
-           db.Execute(insertCommand, first, last);
+            db.Execute(insertCommand, first, last);
 
-            Response.Redirect("~/ViewQuotes");
         }
         if (Validation.IsValid())
         {
@@ -43,7 +42,9 @@
             var db = Database.Open("MegaDeskdb");
             var insertCommand = "INSERT INTO Desk (width, depth, dwr_number, surface_mat, shipping_spd) VALUES(@0, @1, @2, @3, @4)";
             db.Execute(insertCommand, width, depth, drawers, material, rushDays);
+
         }
+        Response.Redirect("~/ViewQuotes");
     }
 }
 
