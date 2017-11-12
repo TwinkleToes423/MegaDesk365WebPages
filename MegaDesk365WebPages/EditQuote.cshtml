@@ -51,13 +51,13 @@
       Validation.RequireField("rushDays", "Rush days are blank");
       Validation.RequireField("quoteid", "No quote ID was submitted!");
 
-      first = Request.Form["first_name"];
-      last = Request.Form["last_name"];
+      first = Request.Form["first"];
+      last = Request.Form["last"];
       width = Request.Form["width"];
       depth = Request.Form["depth"];
-      drawers = Request.Form["dwr_number"];
-      material = Request.Form["surface_mat"];
-      rushDays = Request.Form["shipping_spd"];
+      drawers = Request.Form["drwars"];
+      material = Request.Form["material"];
+      rushDays = Request.Form["rushDays"];
       quoteId = Request.Form["quoteId"];
 
       if (Validation.IsValid())
