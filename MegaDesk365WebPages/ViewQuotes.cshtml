@@ -8,13 +8,13 @@
 
     if (!Request.QueryString["searchFirst"].IsEmpty())
     {
-        selectCommand = "SELECT * FROM MegaDeskdb WHERE first_Name = @0";
+        selectCommand = "SELECT * FROM CompleteDesk WHERE first_Name = @0";
         searchTerm = Request.QueryString["searchFirst"];
     }
 
     if (!Request.QueryString["searchLast"].IsEmpty())
     {
-        selectCommand = "SELECT * FROM MegaDeskdb WHERE last_Name LIKE @0";
+        selectCommand = "SELECT * FROM CompleteDesk WHERE last_Name LIKE @0";
         searchTerm = "%" + Request.QueryString["searchLast"] + "%";
     }
 
