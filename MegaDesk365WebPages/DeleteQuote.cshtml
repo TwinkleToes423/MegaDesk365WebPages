@@ -1,53 +1,53 @@
 ﻿@{
-   Layout = "~/_Layout.cshtml";
-   Page.Width = "Delete a Quote";
+    Layout = "~/_Layout.cshtml";
+    Page.Width = "Delete a Quote";
 
-   var first = "";
-   var last = "";
-   var width = "";
-   var depth = "";
-   var drawers = "";
-   var material = "";
-   var rushDays = "";
-   var quoteId = "";
+    var first = "";
+    var last = "";
+    var width = "";
+    var depth = "";
+    var drawers = "";
+    var material = "";
+    var rushDays = "";
+    var ID = "";
 
-   if (!IsPost)
-   {
-      if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].AsInt() > 0)
-      {
-         quoteId = Request.QueryString["ID"];
-         var db = Database.Open("MegaDeskdb");
-         var dbCommand = "SELECT * FROM CompleteDesk WHERE first_name = @0";
-         var row = db.QuerySingle(dbCommand, quoteId);
-         if (row != null)
-         {
-            first = row.first_name;
-            last = row.last_name;
-            width = row.width;
-            depth = row.depth;
-            drawers = row.dwr_number;
-            material = row.surface_mat;
-            rushDays = row.shipping_spd;
-         }
-         else
-         {
-            Validation.AddFormError("No quote was found for that ID.");
-         }
-      }
-      else
-      {
-         Validation.AddFormError("No quote was found for that ID.");
-      }
-   }
+    if (!IsPost)
+    {
+        if (!Request.QueryString["ID"].IsEmpty() && Request.QueryString["ID"].AsInt() > 0)
+        {
+            ID = Request.QueryString["ID"];
+            var db = Database.Open("MegaDeskdb");
+            var dbCommand = "SELECT * FROM CompleteDesk WHERE ID = @0";
+            var row = db.QuerySingle(dbCommand, ID);
+            if (row != null)
+            {
+                first = row.first_name;
+                last = row.last_name;
+                width = row.width.ToString();
+                depth = row.depth.ToString();
+                drawers = row.dwr_number.ToString();
+                material = row.surface_mat.ToString();
+                rushDays = row.shipping_spd.ToString();
+            }
+            else
+            {
+                Validation.AddFormError("error one");
+            }
+        }
+        else
+        {
+            Validation.AddFormError("error two");
+        }
+    }
 
-   if (IsPost && !Request["buttonDelete"].IsEmpty())
-   {
-      quoteId = Request.Form["quoteId"];
-      var db = Database.Open("MegaDeskdb");
-      var deleteCommand = "DELETE FROM CompleteDesk WHERE ID = @0";
-      db.Execute(deleteCommand, quoteId); 
-      Response.Redirect("~/ViewQuotes");
-   }
+    if (IsPost && !Request["buttonDelete"].IsEmpty())
+    {
+        ID = Request.Form["ID"];
+        var db = Database.Open("MegaDeskdb");
+        var deleteCommand = "DELETE FROM CompleteDesk WHERE ID = @0";
+        db.Execute(deleteCommand, ID);
+        Response.Redirect("~/ViewQuotes");
+    }
 
 }
 
@@ -94,7 +94,7 @@
          <span>@rushDays</span>
       </p>
 
-      <input type="hidden" name="quoteid" value="@quoteId" />
+      <input type="hidden" name="ID" value="@ID" />
       <p><input type="submit" name="buttonDelete" value="Delete Quote" /></p>
    </fieldset>
 </form>

@@ -193,14 +193,14 @@
             </p>
 
             <p>
-                <label for="width">Width: </label>
-                <input type="text" name="width" value="@Request.Form["width"]" />
+                <label for="width">Width: Min is 24". Max is 96". </label>
+                <input type="number" name="width" min="24" max="96" value="@Request.Form["width"]" />
                 @Html.ValidationMessage("width")
             </p>
 
             <p>
-                <label for="depth">Depth: </label>
-                <input type="text" name="depth" value="@Request.Form["depth"]" />
+                <label for="depth">Depth: Min is 12". Max is 48". </label>
+                <input type="number" name="depth" min="12" max="48" value="@Request.Form["depth"]" />
                 @Html.ValidationMessage("depth")
             </p>
 
@@ -245,6 +245,7 @@
                 @Html.ValidationMessage("deskNumber")
             </p>
 
+            
             <p><input type="submit" name="buttonSubmit" value="Submit" /></p>
         </fieldset>
     </form>
