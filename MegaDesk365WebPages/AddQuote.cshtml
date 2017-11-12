@@ -38,8 +38,8 @@
             shipping);
 
         var db = WebMatrix.Data.Database.Open("MegaDeskdb");
-        var insertCommand = "INSERT INTO CompleteDesk (first_name, last_name, Width, Depth, dwr_number, surface_mat, num_of_desk, shipping_spd, order_total) VALUES(@0, @1, @2, @3, @4, @5, @6, @7, @8)";
-        db.Execute(insertCommand, firstName, lastName, float.Parse(width), float.Parse(depth), int.Parse(drawers), material, int.Parse(deskNumber), shipping, price.ToString());
+        var insertCommand = "INSERT INTO CompleteDesk (first_name, last_name, date, width, depth, dwr_number, surface_mat, num_of_desk, shipping_spd, order_total) VALUES(@0, @1, @2, @3, @4, @5, @6, @7, @8, @9)";
+        db.Execute(insertCommand, firstName, lastName, date, float.Parse(width), float.Parse(depth), int.Parse(drawers), material, int.Parse(deskNumber), shipping, price.ToString());
      
 
         Response.Redirect("~/ViewQuotes.cshtml");

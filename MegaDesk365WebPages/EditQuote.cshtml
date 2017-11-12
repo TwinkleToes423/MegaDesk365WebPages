@@ -23,13 +23,13 @@
 
          if (row != null)
          {
-            first = row.First;
-            last = row.Last;
-            width = row.Width;
-            depth = row.Depth;
-            drawers = row.Drawers;
-            material = row.Material;
-            rushDays = row.RushDays;
+            first = row.first_name;
+            last = row.last_name;
+            width = Convert.ToString(row.width);
+            depth = Convert.ToString(row.depth);
+            drawers = Convert.ToString(row.dwr_number);
+            material = row.surface_mat;
+            rushDays = row.shipping_spd;
          }
          else
          {
@@ -55,7 +55,7 @@
       last = Request.Form["last"];
       width = Request.Form["width"];
       depth = Request.Form["depth"];
-      drawers = Request.Form["drwars"];
+      drawers = Request.Form["drawers"];
       material = Request.Form["material"];
       rushDays = Request.Form["rushDays"];
       quoteId = Request.Form["quoteId"];
@@ -63,8 +63,8 @@
       if (Validation.IsValid())
       {
          var db = Database.Open("MegaDeskdb");
-         var updateCommand = "UPDATE CompleteDesk SET Width=@0, Depth=@1, Drawers=@2, Material=@3, RushDays=@4, [First]=@5, Last=@6 WHERE Id=@7";
-         db.Execute(updateCommand, width, depth, drawers, material, rushDays, first, last, quoteId);
+         var updateCommand = "UPDATE CompleteDesk SET first_name=@0, last_name=@1, width=@2, depth=@3, dwr_number=@4, surface_mat=@5, shipping_spd=@6 WHERE Id=@7";
+         db.Execute(updateCommand, first, last, width, depth, drawers, material, rushDays, quoteId);
          Response.Redirect("~/ViewQuotes");
       }
    }

@@ -6,10 +6,10 @@
     var selectCommand = "SELECT * FROM CompleteDesk";
     var searchTerm = "";
 
-    if (!Request.QueryString["searchFirstName"].IsEmpty())
+    if (!Request.QueryString["searchFirst"].IsEmpty())
     {
         selectCommand = "SELECT * FROM MegaDeskdb WHERE first_Name = @0";
-        searchTerm = Request.QueryString["searchFirstName"];
+        searchTerm = Request.QueryString["searchFirst"];
     }
 
     if (!Request.QueryString["searchLast"].IsEmpty())
@@ -25,7 +25,7 @@
 <h2>List Quotes</h2>
 <form method="get">
    <div>
-      <label for="searchFirst">Search by last name:</label>
+      <label for="searchFirst">Search by First name:</label>
       <input type="text" name="searchFirst" value="@Request.QueryString["searchFirst"]" />
       <input type="Submit" value="Search First" /><br />
       (Leave blank to list all quotes.)<br />
