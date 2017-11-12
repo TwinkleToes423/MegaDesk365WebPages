@@ -22,8 +22,8 @@
 
     if (IsPost && Validation.IsValid())
     {
-        firstName = Request.Form["first_Name"];
-        lastName = Request.Form["last_Name"];
+        firstName = Request.Form["first_name"];
+        lastName = Request.Form["last_name"];
         date = DateTime.Now.ToString();
         width = Request.Form["width"];
         depth = Request.Form["depth"];
@@ -182,14 +182,14 @@
             <legend>Desk Specifications</legend>
             <p>
                 <label for="firstName">First Name: </label>
-                <input type="text" name="firstName" value="@Request.Form["first_Name"]" />
-                @Html.ValidationMessage("first_Name")
+                <input type="text" name="firstName" value="@Request.Form["first_name"]" />
+                @Html.ValidationMessage("first_name")
             </p>
 
             <p>
                 <label for="lastName">Last Name: </label>
-                <input type="text" name="lastName" value="@Request.Form["last_Name"]" />
-                @Html.ValidationMessage("last_Name")
+                <input type="text" name="lastName" value="@Request.Form["last_name"]" />
+                @Html.ValidationMessage("last_name")
             </p>
 
             <p>

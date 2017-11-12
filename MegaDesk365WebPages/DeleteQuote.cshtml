@@ -17,7 +17,7 @@
       {
          quoteId = Request.QueryString["ID"];
          var db = Database.Open("MegaDeskdb");
-         var dbCommand = "SELECT * FROM customer INNER JOIN order ON customer.customer_id = order.customer_id INNER JOIN desk ON order.order_id = desk.order_id WHERE first_name = @0";
+         var dbCommand = "SELECT * FROM CompleteDesk WHERE first_name = @0";
          var row = db.QuerySingle(dbCommand, quoteId);
          if (row != null)
          {
