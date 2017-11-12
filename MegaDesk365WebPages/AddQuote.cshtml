@@ -16,7 +16,7 @@
     var drawers = "";
     var material = "";
     var shipping = "";
-    float price = 0;
+    float price = -1;
     var date = "";
     var deskNumber = "";
 
@@ -27,7 +27,7 @@
         date = DateTime.Now.ToString();
         width = Request.Form["width"];
         depth = Request.Form["depth"];
-        drawers = Request.Form["drwers"];
+        drawers = Request.Form["drawers"];
         material = Request.Form["material"];
         shipping = Request.Form["shipping"];
         deskNumber = Request.Form["deskNumber"];
@@ -182,14 +182,14 @@
             <legend>Desk Specifications</legend>
             <p>
                 <label for="firstName">First Name: </label>
-                <input type="text" name="firstName" value="@Request.Form["first_name"]" />
-                @Html.ValidationMessage("first_name")
+                <input type="text" name="firstName" value="@Request.Form["firstName"]" />
+                @Html.ValidationMessage("firstName")
             </p>
 
             <p>
                 <label for="lastName">Last Name: </label>
-                <input type="text" name="lastName" value="@Request.Form["last_name"]" />
-                @Html.ValidationMessage("last_name")
+                <input type="text" name="lastName" value="@Request.Form["lastName"]" />
+                @Html.ValidationMessage("lastName")
             </p>
 
             <p>
@@ -206,7 +206,7 @@
 
             <p>
                 <label for="drawers">Drawers: </label>
-                <select type="text" name="drawers" value="@Request.Form["dwr_numberr"]">
+                <select type="text" name="drawers" value="@Request.Form["drawers"]">
                     <option value="1">One</option>
                     <option value="2">Two</option>
                     <option value="3">Three</option>
@@ -215,34 +215,34 @@
                     <option value="6">Six</option>
                     <option value="7">Seven</option>
                 </select>
-                @Html.ValidationMessage("dwr_number")
+                @Html.ValidationMessage("drawers")
             </p>
 
             <p>
                 <label for="material">Material: </label>
-            <select name="material" value="@Request.Form["surface_mat"]">
+            <select name="material" value="@Request.Form["material"]">
                 <option value="Pine">Pine</option>
                 <option value="Laminate">Laminate</option>
                 <option value="Rosewood">Rosewood</option>
                 <option value="Oak">Oak</option>
                 <option value="Veneer">Veneer</option>
             </select>
-                @Html.ValidationMessage("surface_mat")
+                @Html.ValidationMessage("material")
             </p>
             <p>
                 <label for="shipping">Shipping: </label>
-                <select type="text" name="shipping" value="@Request.Form["shipping_spd"]">
+                <select type="text" name="shipping" value="@Request.Form["shipping"]">
                     <option value="3 day">3 Day</option>
                     <option value="5 day">5 Day</option>
                     <option value="7 day">7 Day</option>
                 </select>
-                @Html.ValidationMessage("shippin_spd")
+                @Html.ValidationMessage("shippin")
             </p>
 
             <p>
                 <label for="deskNumber">Number of Desks: </label>
-                <input type="text" name="deskNumber" value="@Request.Form["num_of_desk"]" />
-                @Html.ValidationMessage("num_of_desk")
+                <input type="text" name="deskNumber" value="@Request.Form["deskNumber"]" />
+                @Html.ValidationMessage("deskNumber")
             </p>
 
             <p><input type="submit" name="buttonSubmit" value="Submit" /></p>
