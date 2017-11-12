@@ -3,7 +3,7 @@
     Page.Last = "List Quotes";
 
     var db = Database.Open("MegaDeskdb");
-    var selectCommand = "SELECT * FROM desk";
+    var selectCommand = "SELECT * FROM CompleteDesk";
     var searchTerm = "";
 
     if (!Request.QueryString["searchFirstName"].IsEmpty())
@@ -14,7 +14,7 @@
 
     if (!Request.QueryString["searchLast"].IsEmpty())
     {
-        selectCommand = "SELECT * FROM MegaDeskdb WHERE LastName LIKE @0";
+        selectCommand = "SELECT * FROM MegaDeskdb WHERE Last_Name LIKE @0";
         searchTerm = "%" + Request.QueryString["searchLast"] + "%";
     }
 

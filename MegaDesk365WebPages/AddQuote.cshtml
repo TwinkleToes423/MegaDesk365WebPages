@@ -7,9 +7,7 @@
     Validation.RequireField("width", "You must enter the width");
     Validation.RequireField("depth", "You must enter the depth");
     Validation.RequireField("deskNumber", "You must enter the number of desks");
-    //Validation.RequireField("drawers", "You must enter the number of drawers");
-    //Validation.RequireField("material", "You must enter the material");
-    //Validation.RequireField("shipping", "You must select");
+   
 
     var firstName = "";
     var lastName = "";
@@ -40,12 +38,9 @@
             shipping);
 
         var db = WebMatrix.Data.Database.Open("MegaDeskdb");
-        var insertCommand1 = "INSERT INTO Desk (width, depth, dwr_number, surface_mat, desk_price) VALUES(@0, @1, @2, @3, @4)";
-        var insertCommand2 = "INSERT INTO Order (shipping_spd, num_of_desk, order_total) VALUES(@0, @1, @2)";
-        var insertCommand3 = "INSERT INTO Customer (first_Name, last_Name) VALUES(@0, @1)";
-        db.Execute(insertCommand1, width, depth, drawers, material, price.ToString());
-        // db.Execute(insertCommand2, shipping, deskNumber, price.ToString());
-        db.Execute(insertCommand3, firstName, lastName);
+        var insertCommand = "INSERT INTO CompleteDesk (first_name, last_name, Width, Depth, dwr_number, surface_mat, num_of_desk, shipping_spd, order_total) VALUES(@0, @1, @2, @3, @4, @5, @6, @7, @8)";
+        db.Execute(insertCommand, firstName, lastName, float.Parse(width), float.Parse(depth), int.Parse(drawers), material, int.Parse(deskNumber), shipping, price.ToString());
+     
 
         Response.Redirect("~/ViewQuotes.cshtml");
     }
@@ -211,19 +206,36 @@
 
             <p>
                 <label for="drawers">Drawers: </label>
-                <input type="text" name="drawers" value="@Request.Form["dwr_numberr"]" />
+                <select type="text" name="drawers" value="@Request.Form["dwr_numberr"]">
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                    <option value="6">Six</option>
+                    <option value="7">Seven</option>
+                </select>
                 @Html.ValidationMessage("dwr_number")
             </p>
 
             <p>
                 <label for="material">Material: </label>
-                <input type="text" name="material" value="@Request.Form["surface_mat"]" />
+            <select name="material" value="@Request.Form["surface_mat"]">
+                <option value="Pine">Pine</option>
+                <option value="Laminate">Laminate</option>
+                <option value="Rosewood">Rosewood</option>
+                <option value="Oak">Oak</option>
+                <option value="Veneer">Veneer</option>
+            </select>
                 @Html.ValidationMessage("surface_mat")
             </p>
-
             <p>
                 <label for="shipping">Shipping: </label>
-                <input type="text" name="shipping" value="@Request.Form["shipping_spd"]" />
+                <select type="text" name="shipping" value="@Request.Form["shipping_spd"]">
+                    <option value="3 day">3 Day</option>
+                    <option value="5 day">5 Day</option>
+                    <option value="7 day">7 Day</option>
+                </select>
                 @Html.ValidationMessage("shippin_spd")
             </p>
 
