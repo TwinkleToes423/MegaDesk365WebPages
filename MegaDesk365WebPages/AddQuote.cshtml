@@ -22,15 +22,15 @@
 
     if (IsPost && Validation.IsValid())
     {
-        firstName = Request.Form["first_name"];
-        lastName = Request.Form["last_name"];
+        firstName = Request.Form["firstName"];
+        lastName = Request.Form["lastName"];
         date = DateTime.Now.ToString();
         width = Request.Form["width"];
         depth = Request.Form["depth"];
-        drawers = Request.Form["dwr_number"];
-        material = Request.Form["surface_mat"];
-        shipping = Request.Form["shipping_spd"];
-        deskNumber = Request.Form["num_of_desk"];
+        drawers = Request.Form["drwers"];
+        material = Request.Form["material"];
+        shipping = Request.Form["shipping"];
+        deskNumber = Request.Form["deskNumber"];
         price = calculateQuotePrice(float.Parse(width),
             float.Parse(depth),
             int.Parse(drawers),
