@@ -1,25 +1,25 @@
 ﻿@{
-   Layout = "~/_Layout.cshtml";
-   Page.Last = "List Quotes";
+    Layout = "~/_Layout.cshtml";
+    Page.Last = "List Quotes";
 
-   var db = Database.Open("MegaDeskdb");
-   var selectCommand = "SELECT * FROM desk";
-   var searchTerm = "";
+    var db = Database.Open("MegaDeskdb");
+    var selectCommand = "SELECT * FROM desk";
+    var searchTerm = "";
 
-   if (!Request.QueryString["searchFirst"].IsEmpty())
-   {
-      selectCommand = "SELECT * FROM customer INNER JOIN order ON customer.customer_id = order.customer_id INNER JOIN desk ON order.order_id = desk.order_id WHERE first_name = @0";;
-      searchTerm = Request.QueryString["searchFirst"];
-   }
+    if (!Request.QueryString["searchFirstName"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM MegaDeskdb WHERE FirstName = @0";
+        searchTerm = Request.QueryString["searchFirstName"];
+    }
 
-   if (!Request.QueryString["searchLast"].IsEmpty())
-   {
-      selectCommand = "SELECT * FROM Orders WHERE Last LIKE @0";
-      searchTerm = "%" + Request.QueryString["searchLast"] + "%";
-   }
+    if (!Request.QueryString["searchLast"].IsEmpty())
+    {
+        selectCommand = "SELECT * FROM MegaDeskdb WHERE LastName LIKE @0";
+        searchTerm = "%" + Request.QueryString["searchLast"] + "%";
+    }
 
-   var selectedData = db.Query(selectCommand, searchTerm);
-   var grid = new WebGrid(source: selectedData, defaultSort: "first_name", rowsPerPage: 10);
+    var selectedData = db.Query(selectCommand, searchTerm);
+    var grid = new WebGrid(source: selectedData, defaultSort: "first_name", rowsPerPage: 5);
 }
 
 <h2>List Quotes</h2>
@@ -59,3 +59,4 @@
     )
 </div>
 <p><a href="~/Default">Return to home</a></p>
+

@@ -18,7 +18,7 @@
     var drawers = "";
     var material = "";
     var shipping = "";
-    float price = -1;
+    float price = 0;
     var date = "";
     var deskNumber = "";
 
@@ -39,7 +39,7 @@
             material,
             shipping);
 
-        var db = WebMatrix.Data.Database.Open("MegaDesk");
+        var db = WebMatrix.Data.Database.Open("MegaDeskdb");
         var insertCommand1 = "INSERT INTO Desk (width, depth, dwr_number, surface_mat, desk_price) VALUES(@0, @1, @2, @3, @4)";
         var insertCommand2 = "INSERT INTO Order (shipping_spd, num_of_desk, order_total) VALUES(@0, @1, @2)";
         var insertCommand3 = "INSERT INTO Customer (first_Name, last_Name) VALUES(@0, @1)";
@@ -47,14 +47,10 @@
         // db.Execute(insertCommand2, shipping, deskNumber, price.ToString());
         db.Execute(insertCommand3, firstName, lastName);
 
-        Response.Redirect("~/DisplayQuote.cshtml");
+        Response.Redirect("~/ViewQuotes.cshtml");
     }
 
-    float calculateQuotePrice(float cWidth,
-        float cDepth,
-        int cDrawers,
-        string cMaterial,
-        string cShipping)
+    float calculateQuotePrice(float cWidth, float cDepth, int cDrawers, string cMaterial, string cShipping)
     {
         int basePrice = 200;
         float drawerPrice = calculateDrawerPrice(cDrawers);
@@ -63,11 +59,7 @@
         float surfaceMaterialPrice = calculateSurfaceMaterialPrice(cMaterial);
         float shippingPrice = calculateShippingPrice(cShipping, surfaceArea);
 
-        float quotePrice = (drawerPrice
-             + surfaceAreaPrice
-             + surfaceMaterialPrice
-             + shippingPrice
-             + basePrice);
+        float quotePrice = (drawerPrice + surfaceAreaPrice + surfaceMaterialPrice + shippingPrice + basePrice);
 
         return quotePrice;
     }
