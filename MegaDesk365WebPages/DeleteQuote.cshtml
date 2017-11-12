@@ -44,7 +44,7 @@
    {
       quoteId = Request.Form["quoteId"];
       var db = Database.Open("MegaDeskdb");
-      var deleteCommand = "DELETE FROM Desk WHERE ID = @0";
+      var deleteCommand = "DELETE FROM CompleteDesk WHERE ID = @0";
       db.Execute(deleteCommand, quoteId); 
       Response.Redirect("~/ViewQuotes");
    }
